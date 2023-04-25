@@ -40,7 +40,7 @@ import tensorflow as tf
 #%%
 # Preprocessing the dataset
 
-df = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_COMPLETE_3_Labels.csv',delimiter=',')
+df = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/Datos_70_Entrenamiento_plus_augdata_TM.csv',delimiter=',')
 
 #df = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_df_personal.csv')
 
@@ -70,7 +70,7 @@ SIZE = 224
 # Dividing Dataset in training and testing with 20 percent of whole dataset for testing
 #X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=760, test_size=0.15)
 #X_tensor_train, X_tensor_test, y_tensor_train, y_tensor_test = train_test_split(X_tensor, y_tensor, random_state=20, test_size=0.2)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.35, random_state=42,stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42,stratify=y)
 #%%
 # verify the distribution of labels in the train and test sets
 import numpy as np
