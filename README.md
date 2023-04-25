@@ -6,8 +6,10 @@ The models decided to train for this application are: MobileNet, DenseNet121, Re
 PHASE1:
 Our first tests 
 First results:
+Models Link: https://drive.google.com/drive/folders/1DuWhlQCnJLaq40nLY5tV1CQmH3KDr92P?usp=share_link
 
 
 PHASE2:
 Second Results:
 Link for Training Phase 2 scripts in Google Colab: https://colab.research.google.com/drive/1tox30QwRCt6dlr8SCWXuvo2dmthRK0Po?usp=sharing
+Models Link: https://drive.google.com/drive/folders/1-FrYv5gDVSJ2NitxHwGnQIMweEXfiilL?usp=share_link
