@@ -90,7 +90,7 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from sklearn.metrics import f1_score
 from tensorflow.keras.metrics import Precision, Recall, AUC
 from sklearn.metrics import average_precision_score
-
+#%%
 # Load the pre-trained MobileNet model
 base_model = MobileNet(
     include_top=False, weights='imagenet', input_shape=(224, 224, 3)

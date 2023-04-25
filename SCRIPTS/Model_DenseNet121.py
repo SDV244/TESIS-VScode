@@ -128,7 +128,7 @@ checkpoint = ModelCheckpoint('../SCRIPTS/TDL/PHYCUV/NEW_MODELS/Not_Augmented/Two
 history = model.fit(
     X_train, y_train,
     batch_size=32,
-    epochs=100,
+    epochs=1000,
     validation_data=(X_test, y_test),
     callbacks=[early_stop, checkpoint],
     verbose = 1
@@ -194,7 +194,7 @@ checkpoint = ModelCheckpoint('../SCRIPTS/TDL/PHYCUV/NEW_MODELS/Not_Augmented/One
 history = model.fit(
     X_train, y_train,
     batch_size=32,
-    epochs=100,
+    epochs=1000,
     validation_data=(X_test, y_test),
     callbacks=[early_stop, checkpoint],
     verbose = 1
