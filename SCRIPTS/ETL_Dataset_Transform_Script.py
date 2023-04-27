@@ -42,34 +42,67 @@ print ("Done loading libraries")
 # Set main variables
 target_fs = 24000  # target fs of project
 wl = 5  # Window length for formated rois
-path_annot = '../ANNOTATIONS_INTC41/INCT41/'  # location of bbox annotations
-path_audio = '../AUDIO_INTC41/INCT41/'  # location of raw audio
+path_annot = '../ANNOTATIONS_INTC41/INTC41/'  # location of bbox annotations
+path_audio = '../AUDIO_INTC41/INTC41/'  # location of raw audio
 path_save = '../train_dataset/'  # location to save new samples
-nombre = next(walk(r"C:\Users\sebas\Documents\GitHub\TESIS-VScode\ANNOTATIONS_INTC41\INCT41"), (None, None, []))[2]  # [] if no file
+nombre = next(walk(r"C:\Users\sebas\Documents\GitHub\TESIS-VScode\ANNOTATIONS_INTC41\INTC41"), (None, None, []))[2]  # [] if no file
 df = pd.DataFrame()
 
 # _______TRIMMING AUDIO SETTINGS _______
 # Set the length of each audio chunk in seconds
-chunk_length = 5
+chunk_length = 4
 # Specify the source and destination directories for the audio files
-src_dir = '../AUDIO_INTC41/INCT41/'
-dst_dir = '../SCRIPTS/TDL/PHYCUV/AUDIO_TRIM/'
+src_dir = '../AUDIO_INTC41/INTC41/'
+dst_dir = '../STRETCHED_AUDIO_TRIM/'
 
 #________PATHS FOR GETTING SPECTROGRAM FILES________
-input_folder = '../SCRIPTS/TDL/PHYCUV/AUDIO_TRIM/'
-output_folder = '../SCRIPTS/TDL/PHYCUV/AUSPEC/'
+input_folder = '../NEW_Orig_Data/AUDIO_TRIM/'
+output_folder = '../NEW_Orig_Data/SPECTROGRAMS_IMAGES/'
 
 
 #_______SETTING UP THE SPECTROGRAM FOLDER TO GENERATE THE DATAFRAME WITH THE INFORMATION_______
-spectrogram_folder = '../SCRIPTS/TDL/PHYCUV/AUSPEC/'
+spectrogram_folder = '../NEW_Orig_Data/SPECTROGRAMS_IMAGES/'
 
 #_______SETTING UP THE LABEL DATAFRAME PATH TO GENERATE THE DATAFRAME WITH THE INFORMATION_______
-input_folder_LBL = '../SCRIPTS/TDL/PHYCUV/CSV/'
+input_folder_LBL = '../NEW_Orig_Data/'
 
 #%%
 #________________________BEGINNING OF FUNCTIONS_______________
 
 
+# def filter_window(df, start, end, step):
+#     """
+#     Filter a dataframe to get windows of time periods.
+
+#     This function filters a dataframe based on start, end and step time values, creating a new dataframe for each
+#     time window. The resulting dataframes are grouped by the file name and stored in a dictionary.
+
+#     Parameters
+#     ----------
+#     df (pandas.DataFrame): Dataframe to be filtered.
+#     start (int): Start time value in seconds.
+#     end (int): End time value in seconds.
+#     step (int): Step value in seconds to create new time windows.
+
+#     Returns
+#     -------
+#     tuple: A tuple containing:
+#         df_mlabel (list): A list of dataframes containing only rows with time between start and end values.
+#         fname_lists (dict): A dictionary of dataframes grouped by the file name.
+#     """
+#     df_mlabel = []
+#     fname_lists = {}
+#     for x in range(start, end, step):
+#         df_windowed = df[(df['min_t'] >= x) & (df['max_t'] <= x + step)]
+#         df_mlabel.append(df_windowed)
+#         for fname, group in df_windowed.groupby('fname'):
+#             if fname not in fname_lists:
+#                 fname_lists[fname] = [group]
+#             else:
+#                 fname_lists[fname].append(group)
+#     return df_mlabel, fname_lists
+
+# NEW ATEMPT
 def filter_window(df, start, end, step):
     """
     Filter a dataframe to get windows of time periods.
@@ -95,14 +128,104 @@ def filter_window(df, start, end, step):
     for x in range(start, end, step):
         df_windowed = df[(df['min_t'] >= x) & (df['max_t'] <= x + step)]
         df_mlabel.append(df_windowed)
-        for fname, group in df_windowed.groupby('fname'):
+        for fname in df_windowed['fname'].unique():
             if fname not in fname_lists:
-                fname_lists[fname] = [group]
+                fname_lists[fname] = [df_windowed.loc[df_windowed['fname'] == fname]]
             else:
-                fname_lists[fname].append(group)
+                fname_lists[fname].append(df_windowed.loc[df_windowed['fname'] == fname])
+        #Handle annotations longer than step seconds
+        df_long = df[(df['min_t'] < x) & (df['max_t'] > x + step)]
+        for i, row in df_long.iterrows():
+            start_time = max(row['min_t'], x)
+            end_time = min(row['max_t'], x + step)
+            while end_time - start_time >= step:
+                new_row = row.copy()
+                new_row['min_t'] = start_time
+                new_row['max_t'] = start_time + step
+                df_mlabel.append(pd.DataFrame([new_row]))
+                if row['fname'] not in fname_lists:
+                    fname_lists[row['fname']] = [pd.DataFrame([new_row])]
+                else:
+                    fname_lists[row['fname']].append(pd.DataFrame([new_row]))
+                start_time += step
+            if end_time - start_time > 0:
+                new_row = row.copy()
+                new_row['min_t'] = start_time
+                new_row['max_t'] = end_time
+                df_mlabel.append(pd.DataFrame([new_row]))
+                if row['fname'] not in fname_lists:
+                    fname_lists[row['fname']] = [pd.DataFrame([new_row])]
+                else:
+                    fname_lists[row['fname']].append(pd.DataFrame([new_row]))
     return df_mlabel, fname_lists
-    
 
+
+
+# FINAL OF NEW ATEMPT
+    
+#ATTEMPT_AGGAN
+
+# def filter_window(df, start, end, step):
+#     """
+#     Filter a dataframe to get windows of time periods.
+
+#     This function filters a dataframe based on start, end and step time values, creating a new dataframe for each
+#     time window. The resulting dataframes are grouped by the file name and stored in a dictionary.
+
+#     Parameters
+#     ----------
+#     df (pandas.DataFrame): Dataframe to be filtered.
+#     start (int): Start time value in seconds.
+#     end (int): End time value in seconds.
+#     step (int): Step value in seconds to create new time windows.
+
+#     Returns
+#     -------
+#     tuple: A tuple containing:
+#         df_mlabel (list): A list of dataframes containing only rows with time between start and end values.
+#         fname_lists (dict): A dictionary of dataframes grouped by the file name.
+#     """
+#     df_mlabel = []
+#     fname_lists = {}
+
+#     # Create an empty dataframe for each file name
+#     for fname in df['fname'].unique():
+#         fname_lists[fname] = pd.DataFrame()
+
+#     for x in range(start, end, step):
+#         # Filter the dataframe to get rows within the current time window
+#         df_windowed = df[(df['min_t'] >= x) & (df['max_t'] <= x + step)]
+
+#         # Append the filtered rows to the list of dataframes
+#         df_mlabel.append(df_windowed)
+
+#         # Group the filtered rows by file name
+#         for fname, group in df_windowed.groupby('fname'):
+#             fname_lists[fname] = pd.concat([fname_lists[fname], group], axis=0)
+
+#         # Handle annotations longer than step seconds
+#         df_long = df[(df['min_t'] < x) & (df['max_t'] > x + step)]
+#         for i, row in df_long.iterrows():
+#             start_time = max(row['min_t'], x)
+#             end_time = min(row['max_t'], x + step)
+#             while end_time - start_time >= step:
+#                 new_row = row.copy()
+#                 new_row['min_t'] = start_time
+#                 new_row['max_t'] = start_time + step
+#                 df_mlabel.append(pd.DataFrame([new_row]))
+#                 fname_lists[row['fname']].append(pd.DataFrame([new_row]), ignore_index=True)
+#                 start_time += step
+#             if end_time - start_time > 0:
+#                 new_row = row.copy()
+#                 new_row['min_t'] = start_time
+#                 new_row['max_t'] = end_time
+#                 df_mlabel.append(pd.DataFrame([new_row]))
+#                 fname_lists[row['fname']].append(pd.DataFrame([new_row]), ignore_index=True)
+
+#     return df_mlabel, fname_lists
+
+
+#ATTEMPTFIN
 def filter_label(row):
     """
        Filter the dataframe row based on specific labels.
@@ -122,6 +245,33 @@ def filter_label(row):
 
 
   
+# def save_fname_lists(fname_lists, save_path):
+#     """
+#         This function saves the data in the `fname_lists` dictionary to csv files. 
+
+#     Parameters
+#     ----------
+#     fname_lists (dict): A dictionary where the key is a string representing the name of an audio file,
+#                         and the value is a list of dataframes.
+#     save_path (str): The path to the directory where the csv files should be saved.
+
+#     Returns
+#     -------
+#     None
+
+#     Example:
+#     save_fname_lists(fname_lists, "data/csv_files")
+#     """
+#     for fname, dfs in fname_lists.items():
+#         dir_path = os.path.join(save_path, fname)
+#         if not os.path.exists(dir_path):
+#             os.makedirs(dir_path)
+#         for i, df in enumerate(dfs):
+#             #file_path = os.path.join(dir_path, f"{fname.split('.')[0]}_{i}.csv")
+#             file_path = os.path.join(dir_path, f"{fname.split('.')[0]}_{i}.csv").replace('\\', '/')
+
+#             df.to_csv(file_path, index=False) 
+ 
 def save_fname_lists(fname_lists, save_path):
     """
         This function saves the data in the `fname_lists` dictionary to csv files. 
@@ -144,9 +294,11 @@ def save_fname_lists(fname_lists, save_path):
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
         for i, df in enumerate(dfs):
-            file_path = os.path.join(dir_path, f"{fname.split('.')[0]}_{i}.csv")
-            df.to_csv(file_path, index=False)  
- 
+            if i < len(dfs):
+                #file_path = os.path.join(dir_path, f"{fname.split('.')[0]}_{i}.csv")
+                file_path = os.path.join(dir_path, f"{fname.split('.')[0]}_{i}.csv").replace('\\', '/')
+                df.to_csv(file_path, index=False)
+
 
 def trim_audio_files(src_dir, dst_dir, chunk_length):
     """
@@ -231,7 +383,7 @@ def load_annotations(path_annot, nombre):
             df_aux = df_aux.drop(columns=['min_f', 'max_f'])
             df = pd.concat([df,df_aux],ignore_index=True)
             df.reset_index(inplace=True, drop=True)
-            df_mlabel, fname_lists = filter_window(df,0,60,5)
+            df_mlabel, fname_lists = filter_window(df,0,110,4)
     return df_mlabel, fname_lists
     
     
@@ -447,8 +599,7 @@ def create_label_df(input_folder):
         'BOAALB_F': 0,
         'BOALUN_F': 0,
         'BOALUN_M': 0,
-        'PHYCUV_M': 0,
-        'PHYCUV_F': 0,
+        'BOALUN_C': 0,
         'none': 0
     }
     label_df = pd.DataFrame(columns=['NAME'] + list(label_dict.keys()))
@@ -483,15 +634,70 @@ def save_merged_df(merged_df, save_path):
     file_path = os.path.join(save_path, "merged_df.csv")
     merged_df.to_csv(file_path, index=False)
     
+
+
+
+def preprocess_audio_data(df):
+    # Define a function to apply to each group
+    # Define a function to apply to each group
+    def group_function(group):
+        # Calculate the number of 4 second intervals in the group
+        num_intervals = int(group['max_t'].max() // 4) + 1
+        
+        # Create a new DataFrame with one row for each 4 second interval
+        df_new = pd.DataFrame({'fname': group['fname'].unique()[0],
+                            'interval': range(num_intervals),
+                            'labels': ''})
+        
+        # Assign the correct labels to each 4 second interval
+        for idx, row in group.iterrows():
+            start = int(row['min_t'] // 4)
+            end = int(row['max_t'] // 4) + 1
+            labels = row['label'].split(',')
+            df_new.loc[start:end, 'labels'] = df_new.loc[start:end, 'labels'].apply(lambda x: ','.join(list(set(x.split(',') + labels))))
+            
+        return df_new
+    # Group by filename and apply the group function to each group
+    grouped = df.groupby('fname')
+    df_new = pd.concat([group_function(group) for name, group in grouped])
+
+    # Reset the index of the new DataFrame
+    df_new = df_new.reset_index(drop=True)
+
+    # Add the interval number to the filename
+    df_new['fname'] = df_new.apply(lambda row: row['fname'].rsplit('.', 1)[0] + '_' + str(row['interval']) + '.wav', axis=1)
+
+    # Concatenate all labels with commas and split to get a set of unique labels
+    unique_labels = set(','.join(df_new['labels'].values.tolist()).split(','))
+
+    # Create new columns for each unique label
+    for label in unique_labels:
+        # Convert label name to a valid column name by replacing any special characters with underscores
+        col_name = label.replace(' ', '_').replace('-', '_').replace('/', '_')
+
+        # Populate the column with 1 if the label is present in the row, 0 otherwise
+        df_new[col_name] = df_new['labels'].apply(lambda x: 1 if label in x else 0)
+    
+    columns_to_drop = ['labels', 'interval', 'PITAZU_F', 'DENCRU_F', 'PHYMAR_C', 'PHYMAR_M', 'DENCRU_M', 'PITAZU_M', 'DENCRU_FE','PHYMAR_F']
+    df_new = df_new.drop(columns_to_drop, axis=1)
+    df_new['fname'] = df_new['fname'].str.replace('.wav', '')
+    df_new = df_new.rename(columns={'fname': 'NAME'})
+
+    # Save the preprocessed DataFrame to a CSV file
+    df_new.to_csv('../STRETCHED_DATASET/label_df.csv', index=False)
+
+    return df_new
+
                 
                   
 print("_____________DONE LOADING THE FUNCTIONS_____________")
 #__________________________END OF FUNCTIONS_____________________________________
 #%%
+
 #Load multiple annotations from a directory and perform multi-label window cutting.
 df_mlabel,fname_lists = load_annotations(path_annot, nombre)
 #Saving fname_lists for tracking purposes      
-save_fname_lists(fname_lists, '../SCRIPTS/TDL/PHYCUV/CSV/')       
+#save_fname_lists(fname_lists, '../STRETCHED_CSV/')       
 print("Done!") 
 
 
@@ -502,6 +708,10 @@ print("Done counting labels")
 # Print count of species founded    
 print(v['label'].value_counts())
 
+#%%
+#Generar dataset
+# Group the DataFrame by file name
+label_df = preprocess_audio_data(v)
 
 #%%
 #Filtrar la especie y guardar en df_rois
@@ -520,11 +730,11 @@ generate_spectrograms_from_folder(input_folder, output_folder)
 #%%
 #Creating spectrogram dataframe from the spectrogram files folder
 spectrogram_df = create_spectrogram_dataframe(spectrogram_folder)
-
+spectrogram_df.to_csv('../STRETCHED_DATASET/spectrogram_df.csv', index=False)
 
 #%%
 #CREATE THE LABELS DATAFRAME IN WHICH IS A SUMMARY OF SPECIES BY NAME OF FILE
-label_df = create_label_df(input_folder_LBL)
+#label_df = create_label_df(input_folder_LBL)
 
 
 #%%
@@ -534,7 +744,7 @@ merged_df = spectrogram_df.merge(label_df, on='NAME', how='right')
 
 #%%
 #Saving DataFrames in the same path
-save_path = "../SCRIPTS/TDL/PHYCUV/DATASET/"
+save_path = "../STRETCHED_DATASET/"
 #save_merged_df(label_df, save_path)
 #save_merged_df(spectrogram_df, save_path)
 save_merged_df(merged_df, save_path)
@@ -542,25 +752,25 @@ save_merged_df(merged_df, save_path)
 
 # %%
 
-merged_df_TEST = pd.read_csv("../SCRIPTS/TDL/PHYCUV/DATASET/merged_COMPLETE_AUGMENTED.csv")
-
+merged_df_TEST = pd.read_csv("../STRETCHED_DATASET/merged_df.csv",delimiter=';')
+#%%
 # Drop the "none" column
 merged_df_TEST.drop(columns=['none'], inplace=True)
-
+#%%
 # Merge PHYCUV_M and PHYCUV_F columns into a new column called PHYCUV
 merged_df_TEST['PHYCUV'] = (merged_df_TEST['PHYCUV_M'].fillna(0) + merged_df_TEST['PHYCUV_F'].fillna(0)).clip(0,1)
-
+#%%
 # Merge BOAALB_M and BOAALB_F columns into a new column called BOAALB
 merged_df_TEST['BOAALB'] = (merged_df_TEST['BOAALB_M'].fillna(0) + merged_df_TEST['BOAALB_F'].fillna(0)).clip(0,1)
 
 # Merge BOALUN_M and BOALUN_F columns into a new column called BOALUN
 merged_df_TEST['BOALUN'] = (merged_df_TEST['BOALUN_M'].fillna(0) + merged_df_TEST['BOALUN_F'].fillna(0)).clip(0,1)
-
+merged_df_TEST['BOALUN'] = (merged_df_TEST['BOALUN'].fillna(0) + merged_df_TEST['BOALUN_C'].fillna(0)).clip(0,1)
 # Drop the original male and female columns
-merged_df_TEST.drop(columns=['PHYCUV_M','BOAALB_M','BOALUN_M','PHYCUV_F','BOAALB_F','BOALUN_F'], inplace=True)
-merged_df_TEST.drop(columns=['PHYCUV'], inplace=True)
+merged_df_TEST.drop(columns=['PHYCUV_M','BOAALB_M','BOALUN_M','PHYCUV_F','BOAALB_F','BOALUN_F','BOALUN_C'], inplace=True)
+#merged_df_TEST.drop(columns=['PHYCUV'], inplace=True)
 # Save the modified dataframe to a CSV file
-merged_df_TEST.to_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_COMPLETE_AUGMENTED_2_Labels.csv', index=False)
+merged_df_TEST.to_csv("../STRETCHED_DATASET/merged_df_3LABELS.csv", index=False)
 
 
 # %%
