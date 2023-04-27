@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Load the CSV file into a pandas DataFrame
-df = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_COMPLETE_3_Labels.csv')
+df = pd.read_csv('../New_Data_Stretched/STRETCHED_DATASET/merged_df_3LABELS.csv',delimiter=',')
 
 # Separate the data based on the label columns
 groups = df.groupby(['PHYCUV', 'BOAALB', 'BOALUN'])
@@ -43,17 +43,52 @@ print(f"Train label counts: {train_label_counts}")
 print(f"Test label counts: {test_label_counts}")
 # %%
 #Comprobation
-treinta= df_30['Path'].tolist()
+#Comprobation
+treinta = df_30['Path'].tolist()
 setenta = df_70['Path'].tolist()
-if set(setenta) & set(treinta):
+common = set(setenta) & set(treinta)
+if common:
     print("There are common elements between the two lists.")
+
 else:
     print("There are no common elements between the two lists.")
-    
+#%%
+# Get the unique paths in each dataframe
+paths_30 = set(df_30["Path"])
+paths_70 = set(df_70["Path"])
+
+# Find the common paths between the two dataframes
+common_paths = paths_30.intersection(paths_70)
+
+if common_paths:
+    print(f"There are {len(common_paths)} common elements between the two dataframes.")
+    for path in common_paths:
+        # Find the index of the duplicate row in df_30
+        idx_list = df_30.index[df_30["Path"] == path].tolist()
+        if idx_list:  # Check if the index list is non-empty
+            idx = idx_list[0]
+            # Drop the row from df_30
+            df_30 = df_30.drop(idx)
+else:
+    print("There are no common elements between the two dataframes.")
+
+# Count the number of duplicates before and after removing them
+num_duplicates_before = len(df_30) - len(set(df_30["Path"]))
+df_30 = df_30.drop_duplicates(subset="Path")
+num_duplicates_after = len(df_30) - len(set(df_30["Path"]))
+
+# Recalculate the label counts
+train_label_counts = np.sum(df_30, axis=0)
+test_label_counts = np.sum(df_70, axis=0)
+print(f"Train label counts: {train_label_counts}")
+print(f"Test label counts: {test_label_counts}")
+print(f"Number of duplicates before: {num_duplicates_before}")
+print(f"Number of duplicates after: {num_duplicates_after}")
+  
 #%%
 #Saving dataframe
-df_30.to_csv('../SCRIPTS/TDL/PHYCUV/DATASET/Datos_30_comprobacion_para_augVAL.csv', index=False) 
-df_70.to_csv('../SCRIPTS/TDL/PHYCUV/DATASET/Datos_70_Entrenamiento_para_augTRAIN.csv', index=False)
+df_30.to_csv('../New_Data_Stretched/STRETCHED_DATASET/Datos_30_para_probar_modelos.csv', index=False) 
+df_70.to_csv('../New_Data_Stretched/STRETCHED_DATASET/Datos_70_Entrenamiento_para_entrenar_o_usar_para_aumentacion.csv', index=False)
 
 # %%
 df1 = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_JUST_AUGMENTED_3_Labels.csv',delimiter=';')
