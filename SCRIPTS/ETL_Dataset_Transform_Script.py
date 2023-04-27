@@ -42,18 +42,18 @@ print ("Done loading libraries")
 # Set main variables
 target_fs = 24000  # target fs of project
 wl = 5  # Window length for formated rois
-path_annot = '../ANNOTATIONS_INTC41/INTC41/'  # location of bbox annotations
-path_audio = '../AUDIO_INTC41/INTC41/'  # location of raw audio
+path_annot = '../ANNOTATIONS_INTC41/INCT41/'  # location of bbox annotations
+path_audio = '../AUDIO_INTC41/INCT41/'  # location of raw audio
 path_save = '../train_dataset/'  # location to save new samples
-nombre = next(walk(r"C:\Users\sebas\Documents\GitHub\TESIS-VScode\ANNOTATIONS_INTC41\INTC41"), (None, None, []))[2]  # [] if no file
+nombre = next(walk(r"C:\Users\sebas\Documents\GitHub\TESIS-VScode\ANNOTATIONS_INTC41\INCT41"), (None, None, []))[2]  # [] if no file
 df = pd.DataFrame()
 
 # _______TRIMMING AUDIO SETTINGS _______
 # Set the length of each audio chunk in seconds
-chunk_length = 4
+chunk_length = 5
 # Specify the source and destination directories for the audio files
-src_dir = '../AUDIO_INTC41/INTC41/'
-dst_dir = '../STRETCHED_AUDIO_TRIM/'
+src_dir = '../AUDIO_INTC41/INCT41/'
+dst_dir = '../NEW_Orig_Data/AUDIO_TRIM'
 
 #________PATHS FOR GETTING SPECTROGRAM FILES________
 input_folder = '../NEW_Orig_Data/AUDIO_TRIM/'
@@ -383,7 +383,7 @@ def load_annotations(path_annot, nombre):
             df_aux = df_aux.drop(columns=['min_f', 'max_f'])
             df = pd.concat([df,df_aux],ignore_index=True)
             df.reset_index(inplace=True, drop=True)
-            df_mlabel, fname_lists = filter_window(df,0,110,4)
+            df_mlabel, fname_lists = filter_window(df,0,110,5)
     return df_mlabel, fname_lists
     
     
@@ -642,7 +642,7 @@ def preprocess_audio_data(df):
     # Define a function to apply to each group
     def group_function(group):
         # Calculate the number of 4 second intervals in the group
-        num_intervals = int(group['max_t'].max() // 4) + 1
+        num_intervals = int(group['max_t'].max() // 5) + 1
         
         # Create a new DataFrame with one row for each 4 second interval
         df_new = pd.DataFrame({'fname': group['fname'].unique()[0],
@@ -651,8 +651,8 @@ def preprocess_audio_data(df):
         
         # Assign the correct labels to each 4 second interval
         for idx, row in group.iterrows():
-            start = int(row['min_t'] // 4)
-            end = int(row['max_t'] // 4) + 1
+            start = int(row['min_t'] // 5)
+            end = int(row['max_t'] // 5) + 1
             labels = row['label'].split(',')
             df_new.loc[start:end, 'labels'] = df_new.loc[start:end, 'labels'].apply(lambda x: ','.join(list(set(x.split(',') + labels))))
             
@@ -678,13 +678,13 @@ def preprocess_audio_data(df):
         # Populate the column with 1 if the label is present in the row, 0 otherwise
         df_new[col_name] = df_new['labels'].apply(lambda x: 1 if label in x else 0)
     
-    columns_to_drop = ['labels', 'interval', 'PITAZU_F', 'DENCRU_F', 'PHYMAR_C', 'PHYMAR_M', 'DENCRU_M', 'PITAZU_M', 'DENCRU_FE','PHYMAR_F']
+    columns_to_drop = ['labels', 'interval', 'PITAZU_F', 'DENCRU_F', 'PHYMAR_C', 'PHYMAR_M', 'DENCRU_M', 'PITAZU_M','PHYMAR_F','nan']
     df_new = df_new.drop(columns_to_drop, axis=1)
     df_new['fname'] = df_new['fname'].str.replace('.wav', '')
     df_new = df_new.rename(columns={'fname': 'NAME'})
 
     # Save the preprocessed DataFrame to a CSV file
-    df_new.to_csv('../STRETCHED_DATASET/label_df.csv', index=False)
+    df_new.to_csv('../NEW_Orig_Data/DATASETS/label_df.csv', index=False)
 
     return df_new
 
@@ -730,7 +730,7 @@ generate_spectrograms_from_folder(input_folder, output_folder)
 #%%
 #Creating spectrogram dataframe from the spectrogram files folder
 spectrogram_df = create_spectrogram_dataframe(spectrogram_folder)
-spectrogram_df.to_csv('../STRETCHED_DATASET/spectrogram_df.csv', index=False)
+spectrogram_df.to_csv('../NEW_Orig_Data/DATASETS/spectrogram_df.csv', index=False)
 
 #%%
 #CREATE THE LABELS DATAFRAME IN WHICH IS A SUMMARY OF SPECIES BY NAME OF FILE
@@ -744,7 +744,7 @@ merged_df = spectrogram_df.merge(label_df, on='NAME', how='right')
 
 #%%
 #Saving DataFrames in the same path
-save_path = "../STRETCHED_DATASET/"
+save_path = "../NEW_Orig_Data/DATASETS/"
 #save_merged_df(label_df, save_path)
 #save_merged_df(spectrogram_df, save_path)
 save_merged_df(merged_df, save_path)
@@ -752,7 +752,7 @@ save_merged_df(merged_df, save_path)
 
 # %%
 
-merged_df_TEST = pd.read_csv("../STRETCHED_DATASET/merged_df.csv",delimiter=';')
+merged_df_TEST = pd.read_csv("../NEW_Orig_Data/DATASETS/merged_df.csv",delimiter=';')
 #%%
 # Drop the "none" column
 merged_df_TEST.drop(columns=['none'], inplace=True)
@@ -770,7 +770,7 @@ merged_df_TEST['BOALUN'] = (merged_df_TEST['BOALUN'].fillna(0) + merged_df_TEST[
 merged_df_TEST.drop(columns=['PHYCUV_M','BOAALB_M','BOALUN_M','PHYCUV_F','BOAALB_F','BOALUN_F','BOALUN_C'], inplace=True)
 #merged_df_TEST.drop(columns=['PHYCUV'], inplace=True)
 # Save the modified dataframe to a CSV file
-merged_df_TEST.to_csv("../STRETCHED_DATASET/merged_df_3LABELS.csv", index=False)
+merged_df_TEST.to_csv("../NEW_Orig_Data/DATASETS/merged_df_3LABELS.csv", index=False)
 
 
 # %%
