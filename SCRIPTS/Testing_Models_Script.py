@@ -45,13 +45,17 @@ from tensorflow.keras.preprocessing import image
 
 # Preprocessing the dataset
 
-df = pd.read_csv('../SCRIPTS/TDL/PHYCUV/DATASET/merged_COMPLETE_3_Labels.csv')
-
+#df = pd.read_csv('/content/TESIS-VScode/SCRIPTS/TDL/PHYCUV/DATASET/Datos_30_comprobacion_para_augVAL.csv')
+#df = pd.read_csv('/content/TESIS-VScode/New_Data_Stretched/STRETCHED_DATASET/Datos_30_para_probar_modelos.csv')
+df = pd.read_csv('/content/TESIS-VScode/NEW_Orig_Data/DATASETS/Datos_30_para_probar_modelos.csv')
+df.dropna(subset=['Path'], inplace=True)
 #%%
 #Function for preprocesing images
 def preprocess_images(paths, target_size=(224,224,3)):
     X = []
     for path in paths:
+        path = os.path.abspath(path)
+        path = path.replace('\\', '/')
         img = image.load_img(path, target_size=target_size)
         img_array = tf.keras.preprocessing.image.img_to_array(img)
         img_array = img_array/255     
@@ -61,47 +65,46 @@ image_paths = df['Path'].values
 
 
 
+
 X = preprocess_images(image_paths) 
 y = np.array(df.drop(['NAME','Path'],axis=1))
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=760, test_size=0.15)
+
 #%%
-#Loading the model
-model = load_model('../SCRIPTS/TDL/PHYCUV/MODELS/MBNET KFOLD TEST/MobileNet_REG_L2_Lr_00001_fold_0.h5') #CHANGE PATH TO LOAD DESIRED MODEL
 
-# Make predictions on the test data
-y_pred = model.predict(X)
+import os
+import pandas as pd
+from tensorflow.keras.models import load_model
 
-# Compute the evaluation metrics
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, hamming_loss
-from tensorflow.keras.metrics import Precision, Recall, AUC
+# Directory where the models are stored
+model_dir = "/content/drive/MyDrive/Models/TMSK"
 
-from sklearn.metrics import average_precision_score
-test_accuracy = accuracy_score(y, y_pred.round())
-test_precision = precision_score(y, y_pred.round(), average='samples')
-test_recall = recall_score(y, y_pred.round(), average='samples')
-test_f1_score = f1_score(y, y_pred.round(), average='samples')
-test_hamming_loss = hamming_loss(y, y_pred.round())
+# CSV file containing the dataset
+# List to store the results
+results = []
 
-# Print the evaluation metrics
-print(f'Test accuracy: {test_accuracy}')
-print(f'Test precision: {test_precision}')
-print(f'Test recall: {test_recall}')
-print(f'Test f1 score: {test_f1_score}')
-print(f'Test hamming loss: {test_hamming_loss}')
+# Loop through all files in the model directory
+for root, dirs, files in os.walk(model_dir):
+    for file in files:
+        # Check if file is a Keras model file
+        if file.endswith(".h5"):
+            # Load the model
+            model_path = os.path.join(root, file)
+            model = load_model(model_path)           
+            # Make predictions on the test data
+            y_pred = model.predict(X)
+            
+            # Compute the evaluation metrics
+            test_f1_score = f1_score(y, y_pred > 0.5, average=None)
+            
+            # Append the results to the list
+            results.append({
+                "model_name": file,
+                "f1_score": test_f1_score
+            })
 
+# Create a dataframe from the results list
+df_results = pd.DataFrame(results)
 
-print("ANOTHER METRICS")
-test_f1_score = f1_score(y, y_pred > 0.5, average=None)
-test_precision = Precision()(y, y_pred).numpy()
-test_recall = Recall()(y, y_pred).numpy()
-test_roc_auc = AUC(curve='ROC')(y, y_pred).numpy()
-test_pr_auc = average_precision_score(y, y_pred, average='micro')
-print(f'Test F1 score: {test_f1_score}')
-print(f'Test precision: {test_precision}')
-print(f'Test recall: {test_recall}')
-print(f'Test ROC AUC: {test_roc_auc}')
-print(f'Test PR AUC: {test_pr_auc}')
-# %%
-#NEWWW
+# Save the dataframe to Excel
+df_results.to_excel("model_results.xlsx", index=False)
 
-# %%
