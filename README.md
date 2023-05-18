@@ -10,5 +10,5 @@ Second and third stages models:
 Models Link: https://drive.google.com/drive/folders/1-FrYv5gDVSJ2NitxHwGnQIMweEXfiilL?usp=share_link
 
 
-Link for Training scripts in Google Colab: https://colab.research.google.com/drive/1tox30QwRCt6dlr8SCWXuvo2dmthRK0Po?usp=sharing
+Link for Training scripts in Google Colab: https://colab.research.google.com/drive/10VlyLztoJith66moBENbkqZUE1N8t-II?usp=sharing
 
