@@ -1,3 +1,12 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Time mask augmentation script
+
+"""
+
 #%%
 import pandas as pd
 import numpy as np

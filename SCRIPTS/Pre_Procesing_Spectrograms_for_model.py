@@ -1,4 +1,13 @@
 
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Pre Processing images script, step needed before train
+
+"""
+
 import numpy as np
 import pandas as pd
 import glob
@@ -24,6 +33,20 @@ df.dropna(subset=['Path'], inplace=True)
 
 
 def preprocess_images(paths, target_size=(224,224,3)):
+    """
+    Preprocesses a batch of images by resizing them, converting them to NumPy arrays, and normalizing the pixel values.
+
+    Parameters
+    ----------
+        paths (list): List of image paths.
+        target_size (tuple, optional): Target size for resizing the images. Defaults to (224, 224, 3).
+
+    Returns
+    -------
+        numpy.ndarray: Array containing the preprocessed images.
+
+
+    """
     X = []
     for path in paths:
         path = os.path.abspath(path)

@@ -1,4 +1,14 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
 
+@author: Michael || Sebastian
+
+Resnet50 Model Training Script
+
+This script trains a Resnet50 model for multilabel classification using the given dataset. It includes options for single-layer and two-layer models, as well as K-fold cross-validation.
+
+
+"""
 
 #RESNET50 MODEL TRAINING SCRIPT
 

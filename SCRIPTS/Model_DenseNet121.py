@@ -1,5 +1,15 @@
 
+"""
+Created on Sun Aug  7 14:50:41 2022
 
+@author: Michael || Sebastian
+
+DenseNet121 Model Training Script
+
+This script trains a DenseNet121 model for multilabel classification using the given dataset. It includes options for single-layer and two-layer models, as well as K-fold cross-validation.
+
+
+"""
 #DENSENET 121 MODEL TRAINING SCRIPT
 
 

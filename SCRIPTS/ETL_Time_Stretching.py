@@ -1,3 +1,11 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Time Stretching augmentation script
+
+"""
 #%%
 import librosa
 import numpy as np
@@ -10,6 +18,21 @@ annotation_dir = './ANNOTATIONS_INTC41/INCT41/'
 output_dir = './new_Stretched/'
 #%%
 def time_stretch(file_path, stretch_factor):
+    """
+    Apply time stretching to an audio file.
+
+    This function reads an audio file located at the specified file path and applies time stretching to the audio signal. Time stretching modifies the duration of the audio without changing the pitch. The resulting time-stretched audio signal is returned.
+
+    Parameters
+    ----------
+    file_path (str): Path to the audio file.
+    stretch_factor (float): Stretch factor to be applied to the audio. A stretch factor greater than 1 increases the duration, while a stretch factor less than 1 decreases the duration.
+
+    Returns
+    -------
+    numpy.ndarray: Time-stretched audio signal.
+
+    """
     y, sr = librosa.load(file_path, sr=None)
     y_stretch = librosa.effects.time_stretch(y, stretch_factor)
     return y_stretch
