@@ -1,3 +1,12 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Script for test trained models
+
+"""
+
 #%%
 
 import numpy as np

@@ -1,3 +1,11 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Script to separate datasets 70-30 
+
+"""
 #%%
 import pandas as pd
 import numpy as np

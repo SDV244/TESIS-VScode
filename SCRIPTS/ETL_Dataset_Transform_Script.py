@@ -638,6 +638,21 @@ def save_merged_df(merged_df, save_path):
 
 
 def preprocess_audio_data(df):
+    """
+    Preprocess audio data.
+
+    This function takes a DataFrame containing audio data and performs preprocessing steps to prepare the data for further analysis. The preprocessing steps include grouping the data into 4-second intervals, assigning correct labels to each interval, creating columns for unique labels, and dropping unnecessary columns. The preprocessed DataFrame is saved to a CSV file.
+
+    Parameters
+    ----------
+    df (pandas.DataFrame): DataFrame containing audio data with columns 'fname', 'min_t', 'max_t', and 'label'.
+
+    Returns
+    -------
+    pandas.DataFrame: Preprocessed DataFrame with columns for each unique label and a modified 'fname' column.
+
+
+    """
     # Define a function to apply to each group
     # Define a function to apply to each group
     def group_function(group):

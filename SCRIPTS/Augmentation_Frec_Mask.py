@@ -1,3 +1,11 @@
+"""
+Created on Sun Aug  7 14:50:41 2022
+
+@author: Michael || Sebastian
+
+Frecuency mask augmentation script
+"""
+
 #%%
 
 import pandas as pd
