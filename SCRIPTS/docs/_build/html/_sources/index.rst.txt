@@ -1,10 +1,10 @@
-.. Tesis documentation master file, created by
-   sphinx-quickstart on Thu May 18 17:16:22 2023.
+.. Documentation Anuran multilabel spectrograms classification scripts documentation master file, created by
+   sphinx-quickstart on Fri May 19 09:36:13 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Tesis's documentation!
-=================================
+Welcome to Documentation Anuran multilabel spectrograms classification scripts's documentation!
+===============================================================================================
 
 .. toctree::
    :maxdepth: 2
