@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETL_Dataset_Transform_Functions module &mdash; Tesis  documentation</title>
+  <title>ETL_Dataset_Transform_Functions module &mdash; Documentation Anuran multilabel spectrograms classification scripts  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -14,13 +16,11 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ETL_Dataset_Transform_Script module" href="ETL_Dataset_Transform_Script.html" />
-    <link rel="prev" title="Data_Augmentation_Time_Mask module" href="Data_Augmentation_Time_Mask.html" /> 
+    <link rel="prev" title="SCRIPTS" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,15 +28,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Tesis
+            <a href="index.html" class="icon icon-home"> Documentation Anuran multilabel spectrograms classification scripts
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,20 +41,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">SCRIPTS</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="70_30_Modif_to_DataSet.html">70_30_Modif_to_DataSet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Augmentation_Frec_Mask.html">Augmentation_Frec_Mask module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Data_Augmentation.html">Data_Augmentation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Data_Augmentation_Time_Mask.html">Data_Augmentation_Time_Mask module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ETL_Dataset_Transform_Functions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ETL_Dataset_Transform_Script.html">ETL_Dataset_Transform_Script module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ETL_Time_Stretching.html">ETL_Time_Stretching module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Model_DenseNet121.html">Model_DenseNet121 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Model_InceptionV3.html">Model_InceptionV3 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Model_MobileNet.html">Model_MobileNet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Model_ResNet50.html">Model_ResNet50 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Pre_Procesing_Spectrograms_for_model.html">Pre_Procesing_Spectrograms_for_model module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Testing_Models_Script.html">Testing_Models_Script module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="init.html">init module</a></li>
 </ul>
 </li>
 </ul>
@@ -69,14 +52,14 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Tesis</a>
+          <a href="index.html">Documentation Anuran multilabel spectrograms classification scripts</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">SCRIPTS</a></li>
       <li class="breadcrumb-item active">ETL_Dataset_Transform_Functions module</li>
       <li class="wy-breadcrumbs-aside">
@@ -89,21 +72,41 @@
            <div itemprop="articleBody">
              
   <section id="module-ETL_Dataset_Transform_Functions">
-<span id="etl-dataset-transform-functions-module"></span><h1>ETL_Dataset_Transform_Functions module<a class="headerlink" href="#module-ETL_Dataset_Transform_Functions" title="Permalink to this heading"></a></h1>
+<span id="etl-dataset-transform-functions-module"></span><h1>ETL_Dataset_Transform_Functions module<a class="headerlink" href="#module-ETL_Dataset_Transform_Functions" title="Permalink to this headline"></a></h1>
 <p>Created on Sun Aug  7 14:50:41 2022</p>
 <p>&#64;author: Michael || Sebastian</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ETL_Dataset_Transform_Functions.augment_dataset_Frecuency_Mask">
+<span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">augment_dataset_Frecuency_Mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.augment_dataset_Frecuency_Mask" title="Permalink to this definition"></a></dt>
+<dd><p>Augments a dataset by applying frequency masking to the minority class samples.</p>
+<p>This function reads a CSV dataset file containing spectrogram images and their associated labels.
+It identifies the label with the least amount of information (minority class) and augments the spectrogram images belonging to that class by applying frequency masking.</p>
+<p>The augmented images are saved with unique names in a specified directory and the corresponding augmented data is added to the original dataset. The resulting balanced dataset is then saved as a new CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> (<em>None.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>None</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="ETL_Dataset_Transform_Functions.create_label_df">
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">create_label_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.create_label_df" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a label DataFrame based on csv files in the input folder.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>input_folder</strong> (<em>str</em>) – The path to the folder containing the csv files.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>label_df</strong> – The created label DataFrame containing the labels of the csv files.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pandas DataFrame</p>
 </dd>
 </dl>
@@ -114,14 +117,14 @@
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">create_spectrogram_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.create_spectrogram_dataframe" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a Pandas DataFrame containing the names and file paths of spectrograms in a directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – The directory containing the spectrogram files.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dataframe containing two columns: ‘NAME’, the basename of the spectrogram file without the ‘.png’ extension,
 and ‘Path’, the file path to the spectrogram.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
@@ -134,13 +137,13 @@ and ‘Path’, the file path to the spectrogram.</p>
 <div><p>Filter the dataframe row based on specific labels.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>row</strong> (<em>pd.Series</em>) – The row of the dataframe that needs to be filtered.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the label in the row is one of the specific labels (‘PHYCUV_M’, ‘PHYCUV_F’,’BOAALB_M’, ‘BOAALB_F’, ‘BOALUN_F’, ‘BOALUN_M’, ‘PHYCUV_M’, ‘PHYCUV_F’), otherwise False.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -153,7 +156,7 @@ and ‘Path’, the file path to the spectrogram.</p>
 <p>This function filters a dataframe based on start, end and step time values, creating a new dataframe for each
 time window. The resulting dataframes are grouped by the file name and stored in a dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>(</strong><strong>pandas.DataFrame</strong><strong>)</strong> (<em>df</em>) – </p></li>
 <li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>step</em>) – </p></li>
@@ -161,11 +164,11 @@ time window. The resulting dataframes are grouped by the file name and stored in
 <li><p><strong>(</strong><strong>int</strong><strong>)</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>tuple</strong> – df_mlabel (list): A list of dataframes containing only rows with time between start and end values.
 fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>A tuple containing:</p>
 </dd>
 </dl>
@@ -176,7 +179,7 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">generate_spectrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">22050</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_fft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hop_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.generate_spectrogram" title="Permalink to this definition"></a></dt>
 <dd><p>Generate spectrogram from audio file and save it as an image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>audio_file_path</strong> (<em>str</em>) – Path to audio file</p></li>
 <li><p><strong>output_file_path</strong> (<em>str</em>) – Path to save the generated spectrogram</p></li>
@@ -185,7 +188,7 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <li><p><strong>hop_length</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples between successive frames, by default 512</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -196,13 +199,13 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">generate_spectrograms_from_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.generate_spectrograms_from_folder" title="Permalink to this definition"></a></dt>
 <dd><p>Generates spectrograms from WAV files in a given folder and saves the spectrograms in a specified output folder.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_folder</strong> (<em>str</em>) – The path to the folder containing the WAV files.</p></li>
 <li><p><strong>output_folder</strong> (<em>str</em>) – The path to the folder where the spectrograms will be saved. If the folder doesn’t exist, it will be created.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -213,13 +216,13 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">get_labels_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.get_labels_from_csv" title="Permalink to this definition"></a></dt>
 <dd><p>This function reads a csv file and returns a list of labels.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>csv_file_path</strong> (<em>str</em>) – The path to the csv file that contains the labels.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of strings representing the labels.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -230,13 +233,13 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">get_spectrogram_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.get_spectrogram_paths" title="Permalink to this definition"></a></dt>
 <dd><p>Return a list of spectrogram file paths found in the directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – The directory to search for spectrogram files.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List of spectrogram file paths.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -249,18 +252,39 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <div><p>Loads annotations from .txt files in the given directory and returns a dataframe.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_annot</strong> (<em>str</em>) – The path to the folder containing the annotation files.</p></li>
 <li><p><strong>nombre</strong> (<em>list</em>) – A list of strings representing the names of the annotation files (without the ‘.txt’ extension).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>df_mlabel</strong> (<em>pd.DataFrame</em>) – The dataframe containing the loaded annotations.</p></li>
 <li><p><strong>fname_lists</strong> (<em>list</em>) – A list of filenames corresponding to the loaded annotations.</p></li>
 </ul>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ETL_Dataset_Transform_Functions.preprocess_images">
+<span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">preprocess_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(224,</span> <span class="pre">224,</span> <span class="pre">3)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.preprocess_images" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocesses a batch of images by resizing them, converting them to NumPy arrays, and normalizing the pixel values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>list</strong><strong>)</strong> (<em>paths</em>) – </p></li>
+<li><p><strong>(</strong><strong>tuple</strong> (<em>target_size</em>) – </p></li>
+<li><p><strong>optional</strong><strong>)</strong> (<em>Target size for resizing the images. Defaults to</em><em> (</em><em>224</em><em>, </em><em>224</em><em>, </em><em>3</em><em>)</em><em>.</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Array containing the preprocessed images.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -272,13 +296,13 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <div><p>This function saves the data in the <cite>fname_lists</cite> dictionary to csv files.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>(</strong><strong>dict</strong><strong>)</strong> (<em>fname_lists</em>) – and the value is a list of dataframes.</p></li>
 <li><p><strong>(</strong><strong>str</strong><strong>)</strong> (<em>save_path</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><em>None</em></p></li>
 <li><p><em>Example</em></p></li>
@@ -296,14 +320,35 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 <div><p>Saves the dataframes to a csv file.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>merged_df</strong> (<em>pandas.DataFrame</em>) – Dataframe to be saved.</p></li>
 <li><p><strong>save_path</strong> (<em>str</em>) – The path to save the csv file.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ETL_Dataset_Transform_Functions.time_stretch">
+<span class="sig-prename descclassname"><span class="pre">ETL_Dataset_Transform_Functions.</span></span><span class="sig-name descname"><span class="pre">time_stretch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stretch_factor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ETL_Dataset_Transform_Functions.time_stretch" title="Permalink to this definition"></a></dt>
+<dd><p>Apply time stretching to an audio file.</p>
+<p>This function reads an audio file located at the specified file path and applies time stretching to the audio signal. Time stretching modifies the duration of the audio without changing the pitch. The resulting time-stretched audio signal is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>str</strong><strong>)</strong> (<em>file_path</em>) – </p></li>
+<li><p><strong>(</strong><strong>float</strong><strong>)</strong> (<em>stretch_factor</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Time-stretched audio signal.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -316,14 +361,14 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
 </div></blockquote>
 <p>Each audio file in <cite>src_dir</cite> will be divided into chunks of <cite>chunk_length</cite> seconds and saved in a new folder with the same name as the original file in <cite>dst_dir</cite>. Each chunk will have a unique filename consisting of the original filename followed by an underscore and a chunk index.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>src_dir</strong> (<em>str</em>) – The path to the source directory containing the audio files.</p></li>
 <li><p><strong>dst_dir</strong> (<em>str</em>) – The path to the destination directory where the trimmed audio chunks will be saved.</p></li>
 <li><p><strong>chunk_length</strong> (<em>float</em>) – The length of each audio chunk in seconds.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -337,14 +382,13 @@ fname_lists (dict): A dictionary of dataframes grouped by the file name.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Data_Augmentation_Time_Mask.html" class="btn btn-neutral float-left" title="Data_Augmentation_Time_Mask module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ETL_Dataset_Transform_Script.html" class="btn btn-neutral float-right" title="ETL_Dataset_Transform_Script module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="SCRIPTS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, S&amp;M.</p>
+    <p>&#169; Copyright 2023, Sebastian De Valdenebro &amp; Michael Hernandez.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -5,6 +5,14 @@ Created on Sun Aug  7 14:50:41 2022
 
 Frecuency mask augmentation script
 """
+#%%
+#As A function for doc
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+
 
 #%%
 
@@ -76,5 +84,5 @@ print(label_counts)
 # %%
 balanced_data.to_csv('../SCRIPTS/TDL/PHYCUV/DATASET/Datos_70_PLUS_AUG_FRECMSK.csv', index=False)
 # %%
-
+#As a Function
 # %%
