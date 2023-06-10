@@ -11,4 +11,5 @@ Models Link: https://drive.google.com/drive/folders/1-FrYv5gDVSJ2NitxHwGnQIMweEX
 
 
 Link for Training scripts in Google Colab: https://colab.research.google.com/drive/10VlyLztoJith66moBENbkqZUE1N8t-II?usp=sharing
+Use this Colab notebook to reproduce the results obtained, the paths are the only thing that must be changed in order to acces the diffetent dataset already built. 
 
